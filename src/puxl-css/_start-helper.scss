@@ -1,0 +1,265 @@
+@charset 'UTF-8';
+
+/* TODO  ====================================================
+    - Desvincular de bootstrap o al menos contemplar mas escenarios.
+    - El método en si no es inclusivo, idear algo en ¿JS? para que los usuarios de lector de pantalla puedan consumir el contenido de los erreoes de forma inclusiva y/o respondan al buscar del navegador de forma que tengan algun sistema bñasico de navegación.
+*/
+
+// General ==================================================== 
+
+html {
+  &:not([dir=ltr]):not([dir=rtl]) {
+    @include error-warning('Missing attribute dir="" in this <html> tag. The dir="" attribute value defines the horizontal direction of the text flow, it can be dir="ltr" fot Left To Right OR dir="rtl" for Right To Left. Example: <html dir="ltr"> OR <html dir="rtl">.');
+  }
+
+  &:not([lang]) {
+    @include error-warning('Missing attribute lang="" in this <html> tag. Example: <html lang="[ Use ISO 639-1 Language Code ]">.');
+  }
+}
+
+main {
+  &:not([id]) {
+    @include error-warning('Missing attribute id="" in this <main> tag. Remember to use a "skip-to-main" link as first child of body. Example: <main id="[ some ID ]">.');
+  }
+}
+
+iframe {
+  &:not([title]) {
+    @include error-warning('This <iframe> tag must have a non-empty title="" attribute. Example: <iframe title="[ some TITLE ]">.');
+  }
+}
+
+
+// control__button ====================================================
+
+button[class*=btn]:not([type=button]):not([type=reset]):not([type=submit]) {
+  @include error-warning('This <button> tag must have a type="" attribute. Use button, reset OR submit. Example: <button type="button">, <button type="reset"> OR <button type="submit">.');
+}// button[class*=btn]:not([type=button]):not([type=reset]):not([type=submit])
+
+a[class*=btn] {
+//    &:not([role=button]) {
+//      @include error-warning('This <a class="btn"> tag must have a role="button" attribute. Example: <a class="btn" role="button">.');
+//    }
+
+  &[aria-disabled=true] {
+    &:not([tabindex="-1"]) {
+      @include error-warning('This <a class="btn" role="button" aria-disabled="true"> tag must have a tabindex="-1" attribute not to receive focus. Example: <a class="btn" role="button" aria-disabled="true" tabindex="-1">.');
+    }
+  }
+}// a[class*=btn]
+
+
+// control__button-icon ====================================================
+
+[class*=btn-icn] {
+
+    > img,
+    > svg {
+      &:not([aria-hidden=true]) {
+        @include error-warning('This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.');
+      }
+    }
+  }// [class*=btn-icn]
+
+
+// control__check ====================================================
+
+.chk {
+  &:not([for]) {
+    @include error-warning('This <label class="chk"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="chk" for="[ child input ID ]">.');
+  }
+
+  > input {
+    &:not([type=checkbox]):not([type=radio]) {
+      + span {
+        @include error-warning('This <input> tag must be of type="checkbox", OR of type="radio". Example: <input type="checkbox"> OR <input type="radio">.');
+      }
+    }
+
+    &:not([id]) {
+      + span {
+        @include error-warning('This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="chk"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.');
+      }
+    }
+  }// > input
+
+}
+
+// control__label-button ====================================================
+
+[class*=lbl-btn] {
+  &:not([for]) {
+    @include error-warning('This <label class="lbl-btn"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="lbl-btn" for="[ child input ID ]">.');
+  }
+ 
+  > input {
+    &:not([id]) {
+      @include error-warning('This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="lbl-btn"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.');
+    }
+  }
+}// [class*=lbl-btn]
+
+// control__label-button-icon ====================================================
+
+[class*=lbl-btn-icn] {
+  
+  > span > img,
+  > span > svg {
+    &:not([aria-hidden=true]) {
+      @include error-warning('This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.');
+    }
+  }
+}// [class*=lbl-btn-icn]
+
+// control__range ====================================================
+
+  .rng {
+    &:not([for]) {
+      @include error-warning('This <label class="rng"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="rng" for="[ child input ID ]">.');
+    }
+
+    > input {
+      &:not([type=range]) {
+        @include error-warning('This <input> tag must be of type="range". Example: <input type="range">.');
+      }
+
+      &:not([id]) {
+        @include error-warning('This <input> tag must have a non-empty id="" attribute. Remember, the parent <label> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.');
+      }
+    }// > input
+
+    > small {
+      &:not([id]) {
+        @include error-warning('This <small> tag must have a non-empty id="" attribute. Remember, the precedent <input> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.');
+      }
+    }// > small
+  }// .rng
+
+// control__select ====================================================
+
+  .sel {
+    &:not([for]) {
+      @include error-warning('This <label class="sel"> tag must have a non-empty for="" attribute. It must point at the child <select> ID. Example: <label class="sel" for="[ child select ID ]">.');
+    }
+
+    > select {
+      &:not([id]) {
+        @include error-warning('This <select> tag must have a non-empty id="" attribute. Remember, the parent <label class="sel"> for="" attribute must be this <input> ID. Example: <select id="[ some ID ]">.');
+      }
+    }// > select
+
+    > small {
+      &:not([id]) {
+        @include error-warning('This <small> tag must have a non-empty id="" attribute. Remember, the precedent <select> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.');
+      }
+    }// > small
+  }
+
+  .sel-mul {
+    &:not([for]) {
+      @include error-warning('This <label class="sel-mul"> tag must have a non-empty for="" attribute. It must point at the child <select> ID. Example: <label class="sel-mul" for="[ child select ID ]">.');
+    }
+
+    > select {
+      &:not([id]) {
+        @include error-warning('This <select> tag must have a non-empty id="" attribute. Remember, the parent <label class="sel-mul"> for="" attribute must be this <input> ID. Example: <select id="[ some ID ]">.');
+      }
+
+      &:not([multiple]) {
+        @include error-warning('This <select> tag must have a multiple attribute. Example: <select multiple>.');
+      }
+    }// > select
+
+    > small {
+      &:not([id]) {
+        @include error-warning('This <small> tag must have a non-empty id="" attribute. Remember, the precedent <select> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.');
+      }
+    }// > small
+  }
+
+// control__switch ====================================================
+
+.swc {
+    &:not([for]) {
+      @include error-warning('This <label class="swc"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="swc" for="[ child input ID ]">.');
+    }
+
+    > input {
+      &:not([type=checkbox]) + .thumb {
+        @include error-warning('This <input> tag must be of type="checkbox". Example: <input type="checkbox">.');
+      }
+
+      &:not([id]) + .thumb {
+        @include error-warning('This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="swc"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.');
+      }
+    }
+
+    .thumb {
+      > img,
+      > svg {
+        &:not([aria-hidden=true]) {
+          @include error-warning('This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.');
+        }
+      }
+    }
+  }// .swc
+
+
+// control__textarea ====================================================
+
+.txta {
+    &:not([for]) {
+      @include error-warning('This <label class="txta"> tag must have a non-empty for="" attribute. It must point at the child <textarea> ID. Example: <label class="txta" for="[ child textarea ID ]">.');
+    }
+
+    > textarea {
+      &:not([id]) {
+        @include error-warning('This <textarea> tag must have a non-empty id="" attribute. Remember, the parent <label class="txta"> for="" attribute must be this <textarea> ID. Example: <textarea id="[ some ID ]">.');
+      }
+    }// > textarea
+
+    > small {
+      &:not([id]) {
+        @include error-warning('This <small> tag must have a non-empty id="" attribute. Remember, the precedent <textarea> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.');
+      }
+    }// > small
+  }
+
+// control__textfield ====================================================
+
+.txt {
+    &:not([for]) {
+      @include error-warning('This <label class="txt"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="txt" for="[ child input ID ]">.');
+    }
+
+    > input {
+      &:not([id]) {
+        @include error-warning('This <input> tag must have a non-empty id="" attribute. Remember, the parent <label> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.');
+      }
+    }// > input
+
+    > small {
+      &:not([id]) {
+        @include error-warning('This <small> tag must have a non-empty id="" attribute. Remember, the precedent <input> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.');
+      }
+    }// > small
+  }
+
+
+// ====================================================
+
+
+
+// img ====================================================
+img {
+
+  &:not([alt]) {
+    @include error-warning('This <img> tag must have an alt="" attribute. Writing a value for ALT attribute is optional. Example: <img alt="">.');
+  }
+
+  &:not([src]):not([srcset]) {
+    @include error-warning('This <img> tag must have a src="" OR a srcset="" attribute with a valid URL. Example: <img src="[ some URL ]"> OR <img srcset="[ some URL ]">.');
+  }
+}
+
+

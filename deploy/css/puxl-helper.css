@@ -1,0 +1,507 @@
+@charset "UTF-8";
+/*
+  PUXL helper
+  Version:      0.1
+  Estado;       Alpha (An Alpha Beta version)
+  Fecha:        18/11/2020
+  Autor:        Raúl Carrillo aka metsuke (@metsuke - metsuke.com)
+  Basado en:    PUXL Framework 1 por Iñigo Garcia (@MrKanuel)
+  License:      GNU General Public License v3.0
+  Web:          ***TODO***
+  Github:       ***TODO***
+*/
+/* TODO  ====================================================
+    - Desvincular de bootstrap o al menos contemplar mas escenarios.
+    - El método en si no es inclusivo, idear algo en ¿JS? para que los usuarios de lector de pantalla puedan consumir el contenido de los erreoes de forma inclusiva y/o respondan al buscar del navegador de forma que tengan algun sistema bñasico de navegación.
+*/
+html:not([dir=ltr]):not([dir=rtl]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+html:not([dir=ltr]):not([dir=rtl])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: Missing attribute dir="" in this <html> tag. The dir="" attribute value defines the horizontal direction of the text flow, it can be dir="ltr" fot Left To Right OR dir="rtl" for Right To Left. Example: <html dir="ltr"> OR <html dir="rtl">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+html:not([lang]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+html:not([lang])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: Missing attribute lang="" in this <html> tag. Example: <html lang="[ Use ISO 639-1 Language Code ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+main:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+main:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: Missing attribute id="" in this <main> tag. Remember to use a "skip-to-main" link as first child of body. Example: <main id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+iframe:not([title]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+iframe:not([title])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <iframe> tag must have a non-empty title="" attribute. Example: <iframe title="[ some TITLE ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+button[class*=btn]:not([type=button]):not([type=reset]):not([type=submit]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+button[class*=btn]:not([type=button]):not([type=reset]):not([type=submit])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <button> tag must have a type="" attribute. Use button, reset OR submit. Example: <button type="button">, <button type="reset"> OR <button type="submit">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+a[class*=btn][aria-disabled=true]:not([tabindex="-1"]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+a[class*=btn][aria-disabled=true]:not([tabindex="-1"])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <a class="btn" role="button" aria-disabled="true"> tag must have a tabindex="-1" attribute not to receive focus. Example: <a class="btn" role="button" aria-disabled="true" tabindex="-1">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+[class*=btn-icn] > img:not([aria-hidden=true]),
+[class*=btn-icn] > svg:not([aria-hidden=true]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+[class*=btn-icn] > img:not([aria-hidden=true])::before,
+[class*=btn-icn] > svg:not([aria-hidden=true])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.chk:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.chk:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="chk"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="chk" for="[ child input ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.chk > input:not([type=checkbox]):not([type=radio]) + span {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.chk > input:not([type=checkbox]):not([type=radio]) + span::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must be of type="checkbox", OR of type="radio". Example: <input type="checkbox"> OR <input type="radio">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.chk > input:not([id]) + span {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.chk > input:not([id]) + span::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="chk"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+[class*=lbl-btn]:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+[class*=lbl-btn]:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="lbl-btn"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="lbl-btn" for="[ child input ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+[class*=lbl-btn] > input:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+[class*=lbl-btn] > input:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="lbl-btn"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+[class*=lbl-btn-icn] > span > img:not([aria-hidden=true]),
+[class*=lbl-btn-icn] > span > svg:not([aria-hidden=true]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+[class*=lbl-btn-icn] > span > img:not([aria-hidden=true])::before,
+[class*=lbl-btn-icn] > span > svg:not([aria-hidden=true])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.rng:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.rng:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="rng"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="rng" for="[ child input ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.rng > input:not([type=range]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.rng > input:not([type=range])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must be of type="range". Example: <input type="range">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.rng > input:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.rng > input:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must have a non-empty id="" attribute. Remember, the parent <label> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.rng > small:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.rng > small:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <small> tag must have a non-empty id="" attribute. Remember, the precedent <input> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.sel:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="sel"> tag must have a non-empty for="" attribute. It must point at the child <select> ID. Example: <label class="sel" for="[ child select ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.sel > select:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel > select:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <select> tag must have a non-empty id="" attribute. Remember, the parent <label class="sel"> for="" attribute must be this <input> ID. Example: <select id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.sel > small:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel > small:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <small> tag must have a non-empty id="" attribute. Remember, the precedent <select> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.sel-mul:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel-mul:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="sel-mul"> tag must have a non-empty for="" attribute. It must point at the child <select> ID. Example: <label class="sel-mul" for="[ child select ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.sel-mul > select:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel-mul > select:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <select> tag must have a non-empty id="" attribute. Remember, the parent <label class="sel-mul"> for="" attribute must be this <input> ID. Example: <select id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.sel-mul > select:not([multiple]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel-mul > select:not([multiple])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: "PUXL helper: This <select> tag must have a multiple attribute. Example: <select multiple>.";
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.sel-mul > small:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.sel-mul > small:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <small> tag must have a non-empty id="" attribute. Remember, the precedent <select> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.swc:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.swc:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="swc"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="swc" for="[ child input ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.swc > input:not([type=checkbox]) + .thumb {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.swc > input:not([type=checkbox]) + .thumb::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must be of type="checkbox". Example: <input type="checkbox">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.swc > input:not([id]) + .thumb {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.swc > input:not([id]) + .thumb::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must have a non-empty id="" attribute. Remember, the parent <label class="swc"> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.swc .thumb > img:not([aria-hidden=true]),
+.swc .thumb > svg:not([aria-hidden=true]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.swc .thumb > img:not([aria-hidden=true])::before,
+.swc .thumb > svg:not([aria-hidden=true])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <img> OR <svg> tag must have aria-hidden="true". Example: <img aria-hidden="true"> OR <svg aria-hidden="true">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.txta:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txta:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="txta"> tag must have a non-empty for="" attribute. It must point at the child <textarea> ID. Example: <label class="txta" for="[ child textarea ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.txta > textarea:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txta > textarea:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <textarea> tag must have a non-empty id="" attribute. Remember, the parent <label class="txta"> for="" attribute must be this <textarea> ID. Example: <textarea id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.txta > small:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txta > small:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <small> tag must have a non-empty id="" attribute. Remember, the precedent <textarea> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+.txt:not([for]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txt:not([for])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <label class="txt"> tag must have a non-empty for="" attribute. It must point at the child <input> ID. Example: <label class="txt" for="[ child input ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.txt > input:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txt > input:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <input> tag must have a non-empty id="" attribute. Remember, the parent <label> for="" attribute must be this <input> ID. Example: <input id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+.txt > small:not([id]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+.txt > small:not([id])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <small> tag must have a non-empty id="" attribute. Remember, the precedent <input> tag must have a aria-describedby="" attribute whose value is this <small> tag ID. Example: <small id="[ some ID ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+img:not([alt]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+img:not([alt])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <img> tag must have an alt="" attribute. Writing a value for ALT attribute is optional. Example: <img alt="">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+img:not([src]):not([srcset]) {
+  background-color: rgba(255, 0, 0, 0.1);
+  border: dotted rem(4px) red !important;
+}
+img:not([src]):not([srcset])::before {
+  background-color: red;
+  display: inline-block;
+  color: white;
+  content: 'PUXL helper: This <img> tag must have a src="" OR a srcset="" attribute with a valid URL. Example: <img src="[ some URL ]"> OR <img srcset="[ some URL ]">.';
+  font-size: 2rem;
+  font-weight: bold;
+  padding: rem(8px) rem(16px);
+}
+
+/*# sourceMappingURL=puxl-helper.css.map */

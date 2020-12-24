@@ -1,0 +1,28 @@
+@charset 'UTF-8';
+
+
+// TODO: De todo
+
+//Configuraciones Globales
+$body--font-size: 2rem;
+
+// ***TODO*** Revisar elementos importados para ver que se puede reducir.
+
+//  Imports  
+
+@import
+
+// Funciones
+  'function/color',
+  'function/math',
+    
+//  Mixins
+  'mixin/error-warning',
+  'mixin/label-input-trick',
+  'mixin/z-shadow',
+
+// Core
+
+  'start-helper'
+
+
